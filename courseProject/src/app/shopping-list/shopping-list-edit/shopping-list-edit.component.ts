@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
     styles: ['./shopping-list-edit.component.css']
 })
 export class ShoppingListEditComponent implements OnInit{
-    accessible: string = 'true';
 
     constructor(){
         

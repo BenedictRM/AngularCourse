@@ -3,6 +3,15 @@
     <div class="col-xs-10">
         <shopping-list-edit></shopping-list-edit>
         <hr>
-        <p>the list</p>
+        <ul class="list-group">
+            <!-- style  enforces a cursor that looks like a pointer instead of having an href-->
+            <a 
+                class="list-group-item" 
+                style="cursor: pointer"
+                *ngFor = "let i of ingredients"
+            >
+                {{ i.name }} ({{i.amount}})
+            </a>
+        </ul>
     </div>
 </div>
