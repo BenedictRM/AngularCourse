@@ -6,11 +6,12 @@
   <hr>
   <div class="row">
     <div class="col-xs-12">
+      <button class="btn btn-danger" (click)="onDestroyFirst()">Destroy</button>
       <app-server-element 
-      *ngFor="let s of serverElements"
-      [srvElement]="s"
+        *ngFor="let s of serverElements"
+        [srvElement]="s"
       >
-        <p>
+        <p #contentParagraph>
           <strong *ngIf="s.type === 'server'" style="color: red">{{ s.content }}</strong>
           <em *ngIf="s.type === 'blueprint'">{{ s.content }}</em>
         </p>
