@@ -6,7 +6,7 @@
         (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
       <br><br>
       <ul class="list-group">
-        <li
+        <!-- <li
           class="list-group-item"
           [ngStyle]="{backgroundColor: n % 2 !== 0 ? 'yellow': 'transparent'}"
           *ngFor="let n of numbers">
@@ -21,10 +21,43 @@
             [ngClass]="{odd: n % 2 !== 0}">
             {{ n }}
           </span>
+        </li> -->
+        <!-- Example of what Angular does behind the scenes to structural dir's, notice there is no '*' -->
+        <!-- <ng-template [ngIf]="!onlyOdd">
+          <li
+          class="list-group-item"
+          [ngStyle]="{backgroundColor: n % 2 !== 0 ? 'yellow': 'transparent'}"
+          *ngFor="let n of numbers">
+            <span 
+              *ngIf="n % 2 === 0 && onlyOdd === false"
+              [ngClass]="{even: n % 2 === 0}"
+              >
+              {{ n }}
+            </span>
+          </li>
+        </ng-template> -->
+
+        <!-- Using our own directive *unless which inverses the behavior-->
+        <li
+          class="list-group-item"
+          [ngStyle]="{backgroundColor: n % 2 !== 0 ? 'yellow': 'transparent'}"
+          *ngFor="let n of numbers">
+          <span 
+            *appUnless="n % 2 === 0 && onlyOdd === false"
+            [ngClass]="{even: n % 2 === 0}"
+            >
+            {{ n }}
+          </span>
+          <span 
+            *appUnless="n % 2 !== 0 && onlyOdd === true"
+            [ngClass]="{odd: n % 2 !== 0}">
+            {{ n }}
+          </span>
         </li>
+      
       </ul>
       <p appBasicHighlight> Style me with basic Directive! </p>
-      <p appBetterHighlight> Style me with basic Directive! </p>
+      <p appBetterHighlight [defaultColor]="'yellow'" [highlightColor]="'red'"> Style me with basic Directive! </p>
     </div>
   </div>
 </div>
