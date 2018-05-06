@@ -1,25 +1,26 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoggingService } from '../shared/logging.service';
+import { AccountsService } from '../shared/accounts.service';
 
 @Component({
   selector: 'app-new-account',
   templateUrl: './new-account.component.html',
-  styleUrls: ['./new-account.component.css'],
-  providers: [LoggingService]
+  styleUrls: ['./new-account.component.css']
+  // providers: [LoggingService]
 })
 export class NewAccountComponent {
-  @Output() accountAdded = new EventEmitter<{name: string, status: string}>();
 
-  constructor(private loggingService: LoggingService){
-
+  constructor(private loggingService: LoggingService, private accountsService: AccountsService){
+    //access the accountsService and subscribe to the event being emitted
+    //EventEmitter just wraps an observable, so we can subscribe to it
+    this.accountsService.statusUpdated.subscribe(
+      (status: string) => alert( 'New Status: ' + status)
+    );
   }
 
   onCreateAccount(accountName: string, accountStatus: string) {
-    this.accountAdded.emit({
-      name: accountName,
-      status: accountStatus
-    });
+    this.accountsService.addAccounts(accountName, status);
     //Custom service example: 
-    this.loggingService.logStatusChange(accountStatus);
+    // this.loggingService.logStatusChange(accountStatus);
   }
 }
