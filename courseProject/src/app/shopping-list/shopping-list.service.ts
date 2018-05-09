@@ -14,6 +14,11 @@ export class ShoppingListService {
         this.ingredientsChanged.emit(this.ingredients.slice());
     }
 
+    addIngredients(ingredients: Ingredient[]){
+        this.ingredients = this.ingredients.concat(ingredients);
+        this.ingredientsChanged.emit(this.ingredients.slice());
+    }
+
     getIngredients(){
         return this.ingredients.slice();
     }

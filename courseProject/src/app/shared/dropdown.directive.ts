@@ -16,13 +16,13 @@ export class DropdownDirective implements OnInit {
     }
 
     ngOnInit(){
-        console.log('nginit called')
+        // console.log('nginit called')
         this.isOpen = false;
     }
 
     @HostListener('click') onClick(){
         this.isOpen = !this.isOpen;
-        console.log(this.isOpen);
+        // console.log(this.isOpen);
     }; 
 
 }
