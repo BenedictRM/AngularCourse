@@ -1,8 +1,9 @@
 <!-- clearfix aligns floats like pull-right/left -->
 <a 
   style="cursor: pointer;"
-  class="list-group-item clearfix" 
-  (click)="onSelect()">
+  [routerLink]="[index]"
+  routerLinkActive="active"
+  class="list-group-item clearfix">
   <!-- (click)="onSelect(recipe, $event)"> -->
   <div class="pull-left">
       <h4 class="list-group-item-heading"> {{ recipe.name }} </h4>

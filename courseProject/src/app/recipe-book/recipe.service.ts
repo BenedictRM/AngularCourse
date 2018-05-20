@@ -17,6 +17,15 @@ export class RecipeService {
                 new Ingredient('Lettuce', 1),
                 new Ingredient('Flour', 1)
             ]
+        ),
+        new Recipe(
+            'Test Recipe 2',
+            'Simply a Test 2',
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS05vHbZocSUKLGoGCaGGjgPQIkVek_cL0SeiwH-vBBQ0UGyZmD',
+            [
+                new Ingredient('Chicken', 1),
+                new Ingredient('Tortillas', 5)
+            ]
         )
     ];
 
@@ -25,6 +34,12 @@ export class RecipeService {
     getRecipes(){
         //slice returns a shallow copy of the array
         return this.recipes.slice();
+    }
+
+    getRecipe(index : number){
+        if(index > this.recipes.length)
+            return this.recipes[0];
+        return this.recipes[index];
     }
 
     addToShoppingList(ingredients: Ingredient[]){
