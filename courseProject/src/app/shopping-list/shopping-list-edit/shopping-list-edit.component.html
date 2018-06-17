@@ -1,7 +1,7 @@
 <div class="row">
     <!-- span full avail width -->
     <div class="col-xs-12">
-        <form>
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
             <div class="row">
                 <!-- on SMALL devices span full avail width -->
                 <div class="col-sm-5 form-group">
@@ -11,23 +11,29 @@
                         type="text" 
                         id="name" 
                         class="form-control"
-                        #nameInput>
+                        name="name"
+                        required
+                        ngModel>
                 </div>
                 <!-- Create a small input NEXT to the above -->
                 <div class="col-sm-2 form-group">
                     <label for="amount">Amount</label>
+                    <!-- Pattern below validates numbers greater than 1 -->
                     <input 
                         type="number" 
                         id="amount" 
                         class="form-control"
-                        #amountInput> 
+                        name="amount"
+                        required
+                        pattern="^[1-9]+[0-9]*$" 
+                        ngModel> 
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <input type="button" class="btn btn-success" (click)="onAddItem()" value="Submit"/>
-                    <input type="button" class="btn btn-danger" value="Delete"/>
-                    <input type="button" class="btn btn-primary" value="Clear"/>
+                    <input type="submit" class="btn btn-success" [value]="editMode ? 'Update' : 'Add'" [disabled]="!f.valid"/>
+                    <input type="button" class="btn btn-danger" value="Delete" (click)="onDelete()" [disabled]="!editMode"/>
+                    <input type="button" class="btn btn-primary" value="Clear" (click)="onClear()"/>
                 </div>
             </div>
         </form>
