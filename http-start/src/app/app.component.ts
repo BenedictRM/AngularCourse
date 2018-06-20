@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ServerService } from './server.service';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,7 @@ import { ServerService } from './server.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  appName = this.serverService.getAppName();
   servers = [
     {
       name: 'Testserver',
@@ -40,6 +42,20 @@ export class AppComponent {
          console.log(error);
        }
      );
+  }
+
+  onGet(){
+    this.serverService.createGetRequest()
+      .subscribe(
+        (servers: any[]) => {
+          //.json() helper method in Response @angular/http -- converts the response data into a json
+          // console.log(servers)
+          this.servers = servers;
+        },
+        (error) => {
+          console.log(error)
+        }
+      );
   }
 
   private generateId() {
