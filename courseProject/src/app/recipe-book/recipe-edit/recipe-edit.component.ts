@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe.model';
+import { DataStorageService } from '../../shared/data-storage.service';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -14,7 +15,12 @@ export class RecipeEditComponent implements OnInit {
   editMode: boolean = false;
   recipeForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private router: Router, private recipeService: RecipeService) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private recipeService: RecipeService, 
+    private dataStorageService: DataStorageService
+  ) { }
 
   ngOnInit() {
     this.route.params
@@ -50,6 +56,18 @@ export class RecipeEditComponent implements OnInit {
     );
   }
 
+  onDeleteIngredient(index: number){
+    (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
+  }
+
+  onSave(){
+    this.dataStorageService.createPostRequest()
+    .subscribe(
+      (response) => {console.log(response)},
+      (error) => {console.log(error)}
+    );
+  }
+
   private initForm(){
     let recipe = new Recipe('', '', '', []);
     let recipeIngredients = new FormArray([]);
@@ -73,9 +91,5 @@ export class RecipeEditComponent implements OnInit {
       'description': new FormControl(recipe.description, Validators.required),
       'ingredients': recipeIngredients
     });
-  }
-
-  onDeleteIngredient(index: number){
-    (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
   }
 }

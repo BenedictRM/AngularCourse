@@ -24,13 +24,19 @@
       </ul>
       <!-- position links to right -->
       <ul class="nav navbar-nav navbar-right">
+        <!-- [ngIf] let's you ngIf multiple tags with a single boolean -->
+        <ng-template [ngIf]="!authService.isAuthenticated()">
+            <li><a routerLink="/signup">Signup</a></li>
+            <li><a routerLink="/signin">Login</a></li>
+        </ng-template>
+        <li><a style="cursor: pointer;" (click)="onLogout()" *ngIf="authService.isAuthenticated()">Logout</a></li>
         <!-- holds content only, requires something to toggle -->
-        <li class="dropdown" appDropdown>
+        <li class="dropdown" appDropdown *ngIf="authService.isAuthenticated()">
           <a style="cursor: pointer;" class="dropdown-toggle">Manage<span class="caret"></span></a>
           <!-- hold items of dropdown -->
           <ul class="dropdown-menu">
-            <li><a style="cursor: pointer;"> Save Data </a></li>
-            <li><a style="cursor: pointer;"> Fetch Data </a></li>
+            <li><a style="cursor: pointer;" (click)="onSave()"> Save Data </a></li>
+            <li><a style="cursor: pointer;" (click)="onFetch()"> Fetch Data </a></li>
           </ul>
         </li>
       </ul>
