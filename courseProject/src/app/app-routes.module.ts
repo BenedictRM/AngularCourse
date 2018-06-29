@@ -1,13 +1,13 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router"
-import { SignupComponent } from "./auth/signup/signup.component";
-import { SigninComponent } from "./auth/signin/signin.component";
+import { HomeComponent } from "./home/home.component";
 
 const routes: Routes = [
     // pathMatch: 'full' forces the full path to match in order to trigger the redirect
-    {path: '', redirectTo: '/recipes', pathMatch: 'full'},
-    {path: 'signup', component: SignupComponent},
-    {path: 'signin', component: SigninComponent}
+    // {path: '', redirectTo: '/recipes', pathMatch: 'full'}
+    {path: '', component: HomeComponent, pathMatch: 'full'},
+    // Lazily load the Recipe Module
+    {path: 'recipes', loadChildren: './recipe-book/recipes.module#RecipesModule' }
 ];
 
 @NgModule({
