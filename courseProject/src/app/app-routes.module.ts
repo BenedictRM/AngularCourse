@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router"
-import { HomeComponent } from "./home/home.component";
+import { Routes, RouterModule, PreloadAllModules } from "@angular/router"
+import { HomeComponent } from "./core/home/home.component";
 
 const routes: Routes = [
     // pathMatch: 'full' forces the full path to match in order to trigger the redirect
@@ -12,8 +12,8 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-        //Register Routes by configuring RouterModule
-        RouterModule.forRoot(routes)
+        //Register Routes by configuring RouterModule -- preloading set for lazily loaded modules so they compile earlier
+        RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})
     ],
     exports: [RouterModule]
 })
